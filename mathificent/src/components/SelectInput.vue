@@ -1,14 +1,15 @@
 <template>
     <div>
-        <label>Select Label
-            <select name="select">
-            <option value="sample value">Sample Value</option>
+        <label>{{label}}
+            <select :name="id">
+            <option v-for="value in values" v-bind:key="value" v-bind:value="value">{{value}}</option>
             </select>
         </label>
     </div>
 </template>
 <script>
 export default {
-    name: 'SelectInput'
+    name: 'SelectInput',
+    props: ['id','label','values']
 }
 </script>
