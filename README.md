@@ -33,7 +33,7 @@ In this exercise, you will start with a boilerplate Vue project and make
 some modifications to it to learn about the different files involved in Vue
 applications and the different parts of those files.
   1. From the mathificent directory, open src/App.vue for editing.
-  1. Take a look at the structure of this file. It has a template at the top, followed by a script block, followed by CSS styles.
+  1. Take a look at the structure of this file. It has a template at the top, followed by a script block, followed by CSS styles. In Vue, this file is called a "single-file component."
   1. If it isn't already running, start the Vue server by entering npm run serve in your terminal. 4. Look at the template section of the App component. It renders an image and another component, named HelloWorld. Open a browser and go to http://localhost:8080.
   1. Open main.js in your code editor. This is the main JavaScript file for the entire Vue application. This file is the only place in your application that imports the Vue framework and renders the one component that contains every other component, also known as the root component. In our application, the root component is App.vue.
   1. In main.js, comment out the import statement that imports App:
@@ -76,4 +76,38 @@ This is where index.js will render the root component for your application.
     <h1>Mathificent</h1>
   </div>
 </template>
-Your application should now look like this:
+Your App.vue file should now look like this:
+<template>
+  <div id="app">
+    <h1>Mathificent</h1>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'app',
+  components: {
+    
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+
+Your application should now look like this in the browser.
+  1. If you see an error message, return to your App.js file and make sure that it matches the solution exactly.
+  1. Remember to stop the app (CTRL+C) and close the terminal when you are done.
+
+Exercise 3
+
+
