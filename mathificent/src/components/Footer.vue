@@ -1,7 +1,7 @@
 <template>
-    <footer className="navbar fixed-bottom bg-dark">
+    <footer class="navbar fixed-bottom bg-dark">
     <a href="https://www.webucator.com">
-    Copyright &copy; {new Date().getFullYear()} Webucator
+    Copyright &copy; {{new Date().getFullYear()}} Webucator
     </a>
     </footer>
 </template>
