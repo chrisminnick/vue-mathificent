@@ -1,9 +1,11 @@
 <template>
     <div>
-        <SelectInput label="Operation" id="operation" :values="operations" />
-        <SelectInput label="Maximum Number" id="max-number" :values="numbers" />
+        <SelectInput label="Operation" id="operation" v-model="currentOperation" :options="operations" />
+        <SelectInput label="Maximum Number" id="max-number" v-model="maxNumber" :options="numbers" />
         <ScoreOutputBox />
         <PlayButton />
+        <p>current operation: {{currentOperation}}</p>
+        <p>max number: {{maxNumber}}</p>
     </div>
 </template>
 <script>
@@ -21,6 +23,8 @@ export default {
     data: function(){
         return {
         operations: ['+','x','/','-'],
+        currentOperation:'+',
+        maxNumber:2
         }
     },
     computed: {
