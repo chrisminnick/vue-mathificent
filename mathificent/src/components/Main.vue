@@ -1,7 +1,7 @@
 <template>
     <div>
-        <SelectInput label="Operation" id="operation" v-model="currentOperation" :options="operations" />
-        <SelectInput label="Maximum Number" id="max-number" v-model="maxNumber" :options="numbers" />
+        <SelectInput :currentValue="currentOperation" label="Operation" id="operation" v-model="currentOperation" :options="operations" />
+        <SelectInput :currentValue="maxNumber" label="Maximum Number" id="max-number" v-model="maxNumber" :options="numbers" />
         <ScoreOutputBox />
         <PlayButton />
         <p>current operation: {{currentOperation}}</p>
