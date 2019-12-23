@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    
+      <router-link to="/">Home</router-link> |
+      <router-link to="/play">Play</router-link>
   <Header />
-    <Main />
+    <router-view/>
   <Footer />
 
   </div>
@@ -10,7 +11,6 @@
 
 <script>
 import Header from './components/Header';
-import Main from './components/Main';
 import Footer from './components/Footer';
 
 export default {
@@ -18,7 +18,6 @@ export default {
 
   components: {
     Header,
-    Main,
     Footer
   }
 }

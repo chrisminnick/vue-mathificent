@@ -8,9 +8,15 @@
         </button>
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-              <a class="nav-link" href="/">Home</a>
-              </li>
+          <li class="nav-item">
+              <router-link class="nav-link" href="/">Home</router-link>
+          </li>
+          <li class="nav-item">
+              <router-link class="nav-link" href="/play">Play</router-link>
+          </li>
+              <div id="nav">
+
+    </div>
             </ul>
           </div>
         </nav>
