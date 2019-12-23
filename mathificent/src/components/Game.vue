@@ -1,6 +1,6 @@
 <template>
-    <div className="w-25">
-        it's the game
+    <div>
+        <router-link class="btn btn-success" to="/">Change Game!</router-link>
     </div>
 </template>
 <script>
