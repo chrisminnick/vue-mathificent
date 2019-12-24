@@ -5,9 +5,21 @@ import Game from '../components/Game.vue'
 
 Vue.use(VueRouter)
 
+let stateData = {
+  operations: ['+','x','/','-'],
+  currentOperation:'x',
+  maxNumber:3
+}
+
 const routes = [
-  { path: '/', name: 'home', component: Main },
-  { path: '/play', name: 'play', component: Game }];
+  { path: '/',   
+    data: stateData,
+    name: 'home', 
+    component: Main },
+  { path: '/play',     
+    data: stateData,
+    name: 'play', 
+    component: Game }];
 
 const router = new VueRouter({
   mode: 'history',
