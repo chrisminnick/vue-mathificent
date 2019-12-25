@@ -1,7 +1,7 @@
 <template>
   <div id="app">
   <Header />
-    <router-view/>
+    <Main />
   <Footer />
 
   </div>
@@ -10,13 +10,15 @@
 <script>
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Main from './components/Main';
 
 export default {
   name: 'app',
 
   components: {
     Header,
-    Footer
+    Footer,
+    Main
   }
 }
 </script>

@@ -21,7 +21,8 @@ export default {
     name: 'Main',
     components: {
         SelectInput,
-        ScoreOutputBox    },
+        ScoreOutputBox
+    },
     data: function(){
         return {
         operations: ['+','x','/','-'],

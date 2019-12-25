@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link class="btn btn-success" to="/">Change Game!</router-link>
+        <button v-on:click="config()">Change the Game!</button>
     </div>
 </template>
 <script>
