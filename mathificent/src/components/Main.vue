@@ -3,7 +3,6 @@
     <div v-if="screen==='config'">
         <SelectInput :currentValue="currentOperation" label="Operation" id="operation" v-model="currentOperation" :options="operations" />
         <SelectInput :currentValue="maxNumber" label="Maximum Number" id="max-number" v-model="maxNumber" :options="numbers" />
-        <ScoreOutputBox />
         <button v-on:click="play()">Play!</button>
         <p>current operation: {{currentOperation}}</p>
         <p>max number: {{maxNumber}}</p>
@@ -16,10 +15,10 @@
             <template v-else>
                 <div class="row game-ui">
                     <div class="col mx-3 text-left">
-                        Score:score here
+                        <Score :score="score" />
                     </div>
                     <div class="col mx-3 text-left">
-                        Time Left: {{timeLeft}}
+                        <Timer :timeLeft="timeLeft" />
                     </div>
                 </div>
                 <div class="row">
@@ -37,16 +36,19 @@
 </template>
 <script>
 import SelectInput from './SelectInput';
-import ScoreOutputBox from './ScoreOutputBox';
+import Score from './Score';
+import Timer from './Timer';
 
 export default {
     name: 'Main',
     components: {
         SelectInput,
-        ScoreOutputBox
+        Score,
+        Timer
     },
     data: function(){
         return {
+        score: 0,
         timeLeft:10,
         operations: ['+','x','/','-'],
         buttons: [1,2,3,4,5,6,7,8,9,0],
