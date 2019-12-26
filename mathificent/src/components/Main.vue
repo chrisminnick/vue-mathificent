@@ -22,7 +22,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    Equation: (equation here)
+                    <Equation :question="question" 
+                      :answer="answer"
+                      :answered="answered" />
                 </div>
                 <div class="row" id="buttons">
                     <button class="btn btn-primary" v-for="button in buttons" v-bind:key="button" v-bind:value="button">{{button}}</button>
@@ -38,17 +40,22 @@
 import SelectInput from './SelectInput';
 import Score from './Score';
 import Timer from './Timer';
+import Equation from './Equation';
 
 export default {
     name: 'Main',
     components: {
         SelectInput,
         Score,
-        Timer
+        Timer,
+        Equation
     },
     data: function(){
         return {
         score: 0,
+        question: '1+1',
+        answer: '2',
+        answered: true,
         timeLeft:10,
         operations: ['+','x','/','-'],
         buttons: [1,2,3,4,5,6,7,8,9,0],
