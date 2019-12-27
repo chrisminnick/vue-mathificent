@@ -26,7 +26,8 @@
                 <div class="row">
                     <Equation :question="question" 
                       :answer="answer"
-                      :answered="answered" />
+                      :answered="answered" 
+                      v-on:correct="newQuestion"/>
                 </div>
                 <div class="row" id="buttons">
                     <button class="btn btn-primary" :prevValue = "input" v-for="button in buttons" v-on:click="setInput(input,button)" v-bind:key="button" v-bind:value="button">{{button}}</button>
@@ -43,8 +44,7 @@ import Score from './Score';
 import Timer from './Timer';
 import Equation from './Equation';
 import ClearButton from './ClearButton';
-//import {checkAnswer,getRandNumbers,getCorrectAnswer} from '../helpers/gameplay';
-import {getRandNumbers} from '../helpers/gameplay';
+import {checkAnswer,getRandNumbers,getCorrectAnswer} from '../helpers/gameplay';
 
 
     /* if (displayAnswer === 'correct') {
@@ -75,9 +75,9 @@ export default {
         return {
         score: 0,
         input: '',
-        answer: '2',
-        /* displayAnswer: checkAnswer(input, correctAnswer),
-        correctAnswer: getCorrectAnswer(operation,operands.num1,operands.num2), */
+        answer: '',
+        operands: {num1:4,num2:1},
+        correctAnswer: 2, 
         answered: true,
         timeLeft:10,
         operations: ['+','x','/','-'],
@@ -95,14 +95,14 @@ export default {
             }
             return numbers;
         },
-        operands: function() {
-            let operands = getRandNumbers(
-                    this.operation, 0,
-                    this.maxNumber);
-            return operands;
+        getOperands: function() {
+            let randNums = getRandNumbers(
+                this.operation, 0,
+                this.maxNumber);
+                return randNums;
         },
         question: function(){
-            let equation = `${this.num1} ${this.currentOperation} ${this.num2}`;
+            let equation = `${this.operands.num1} ${this.currentOperation} ${this.operands.num2}`;
             return equation;
         },
     },
@@ -118,7 +118,22 @@ export default {
         },
         setInput(prevValue,value){
             this.input = String(prevValue) + String(value);
-        }
+            this.answer = checkAnswer(this.input,this.correctAnswer);
+        },
+        newQuestion() {
+            this.setInput('');
+            this.answered = false;
+            this.operands = getRandNumbers(
+                this.operation, 0, this.maxNumber
+            );
+            let newCorrectAnswer = getCorrectAnswer(
+                this.operation,
+                this.operands.num1,
+                this.operands.num2
+            );
+            this.correctAnswer = newCorrectAnswer;
+        },
+        getCorrectAnswer
     }
     
 }
