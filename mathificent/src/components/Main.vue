@@ -1,14 +1,16 @@
 <template>
 <div>
     <div v-if="screen==='config'">
-        <SelectInput :currentValue="currentOperation" label="Operation" id="operation" v-model="currentOperation" :options="operations" />
-        <SelectInput :currentValue="maxNumber" label="Maximum Number" id="max-number" v-model="maxNumber" :options="numbers" />
-        <button v-on:click="play()">Play!</button>
-        <p>current operation: {{currentOperation}}</p>
-        <p>max number: {{maxNumber}}</p>
+        <div class="container" id="config-container">
+            <SelectInput :currentValue="currentOperation" label="Operation" id="operation" v-model="currentOperation" :options="operations" />
+            <SelectInput :currentValue="maxNumber" label="Maximum Number" id="max-number" v-model="maxNumber" :options="numbers" />
+            <button class="btn btn-primary" v-on:click="play()">Play!</button>
+            <p>current operation: {{currentOperation}}</p>
+            <p>max number: {{maxNumber}}</p>
+        </div>
     </div>
     <div v-if="screen==='play'">
-        <div className="container" id="game-container">
+        <div class="container" id="game-container">
             <template v-if="timeLeft===0">
                 <button class="btn btn-primary" v-on:click="config()">Play Again</button>
             </template>
@@ -27,20 +29,38 @@
                       :answered="answered" />
                 </div>
                 <div class="row" id="buttons">
-                    <button class="btn btn-primary" v-for="button in buttons" v-bind:key="button" v-bind:value="button">{{button}}</button>
-                    <button class="btn btn-primary" v-on:click="clear()">Clear</button>
+                    <button class="btn btn-primary" :prevValue = "input" v-for="button in buttons" v-on:click="setInput(input,button)" v-bind:key="button" v-bind:value="button">{{button}}</button>
+                    <ClearButton @clear="clear()" />
                 </div>
-
             </template>
         </div>
     </div>
-    </div>
+</div>
 </template>
 <script>
 import SelectInput from './SelectInput';
 import Score from './Score';
 import Timer from './Timer';
 import Equation from './Equation';
+import ClearButton from './ClearButton';
+//import {checkAnswer,getRandNumbers,getCorrectAnswer} from '../helpers/gameplay';
+import {getRandNumbers} from '../helpers/gameplay';
+
+
+    /* if (displayAnswer === 'correct') {
+      
+      score = score + 1;
+      operands = getRandNumbers(
+      props.operation, 0,
+      props.maxNumber
+      );
+      correctAnswer = getCorrectAnswer(
+      props.operation,
+      newRandNums.num1,
+      newRandNums.num2
+      );
+
+      } */
 
 export default {
     name: 'Main',
@@ -48,13 +68,16 @@ export default {
         SelectInput,
         Score,
         Timer,
-        Equation
+        Equation,
+        ClearButton
     },
     data: function(){
         return {
         score: 0,
-        question: '1+1',
+        input: '',
         answer: '2',
+        /* displayAnswer: checkAnswer(input, correctAnswer),
+        correctAnswer: getCorrectAnswer(operation,operands.num1,operands.num2), */
         answered: true,
         timeLeft:10,
         operations: ['+','x','/','-'],
@@ -71,7 +94,17 @@ export default {
                 numbers.push(number);
             }
             return numbers;
-        }
+        },
+        operands: function() {
+            let operands = getRandNumbers(
+                    this.operation, 0,
+                    this.maxNumber);
+            return operands;
+        },
+        question: function(){
+            let equation = `${this.num1} ${this.currentOperation} ${this.num2}`;
+            return equation;
+        },
     },
     methods: {
         config() {
@@ -79,6 +112,12 @@ export default {
         },
         play() {
             this.screen = "play";
+        },
+        clear() {
+            this.answer = '';
+        },
+        setInput(prevValue,value){
+            this.input = String(prevValue) + String(value);
         }
     }
     
@@ -89,12 +128,17 @@ export default {
     .game-ui {
         border-bottom: "thin #000 solid";
         font-size: 1.5em;
+
     }
     #game-container {
-        width: 320px;
+        width: 400px;
         margin: 1em auto;
     }
-
+    #config-container {
+        width: 400px;
+        margin: 1em auto;
+        font-size: 1.5em;
+    }
     #buttons button {
         border-radius: .25em;
         font-size: 3em;

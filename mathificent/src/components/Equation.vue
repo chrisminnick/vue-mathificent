@@ -1,13 +1,13 @@
 <template>
     <div id="equation" :class="cls">
-      <div className="col-5">{{question}}</div>
-      <div className="col-2">=</div>
-      <div className="col-5">{{answer}}</div>
+      <div class="col-5">{{String(question)}}</div>
+      <div class="col-2">=</div>
+      <div class="col-5">{{answer}}</div>
     </div>
 </template>
 <script>
 export default {
-    name: 'Timer',
+    name: 'Equation',
     props: ['question','answer','answered'],
     computed: {
         cls:(answered)=>{answered
