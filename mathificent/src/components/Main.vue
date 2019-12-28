@@ -11,6 +11,7 @@
     <div v-if="screen==='play'">
         <div class="container" id="game-container">
             <template v-if="timeLeft===0">
+                {{stopTimer()}}
                 <button class="btn btn-primary" v-on:click="config()">Play Again</button>
             </template>
             <template v-else>
@@ -63,7 +64,9 @@ export default {
         operands: {num1:1,num2:1},
         correctAnswer: 2, 
         answered: true,
-        timeLeft:10,
+        timeLeft:'',
+        timer:'',
+        gameLength:10,
         operations: ['+','x','/','-'],
         buttons: [1,2,3,4,5,6,7,8,9,0],
         currentOperation: '+',
@@ -96,14 +99,30 @@ export default {
         },
         play() {
             this.screen = "play";
+            this.restart();
         },
         clear() {
             this.input = '';
+            this.answer = '';
         },
+        stopTimer() {
+            clearInterval(this.timer);
+        },
+        restart() {
+            this.timeLeft = this.gameLength;
+            this.score = 0;
+            this.newQuestion();
+            if (this.timeLeft > 0) {
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                }, 1000)
+            }
+        },  
         setInput(prevValue,value){
             this.input = String(prevValue) + String(value);
             this.answer = checkAnswer(this.input,this.correctAnswer);
-            if (this.answer === 'correct'){
+            if ((this.answer === 'correct') && (this.timeLeft>0)){
+                this.score++;
                 this.newQuestion();
             }
         },
@@ -114,14 +133,12 @@ export default {
             this.operands = getRandNumbers(
                 this.currentOperation, 0, this.maxNumber
             );
-            console.log("new operands: " + this.operands.num1 + ' ' + this.operands.num2);
             let newCorrectAnswer = getCorrectAnswer(
                 this.currentOperation,
                 this.operands.num1,
                 this.operands.num2
             );
             this.correctAnswer = newCorrectAnswer;
-            console.log("new correct answer: " + this.correctAnswer);
         }
     }
     
