@@ -5,7 +5,6 @@
             <option v-for="option in options" v-bind:key="option" v-bind:value="option">{{option}}</option>
             </select>
         </label>
-        <p>selected: {{currentValue}}</p>
     </div>
 </template>
 <script>

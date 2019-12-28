@@ -5,8 +5,7 @@
             <SelectInput :currentValue="currentOperation" label="Operation" id="operation" v-model="currentOperation" :options="operations" />
             <SelectInput :currentValue="maxNumber" label="Maximum Number" id="max-number" v-model="maxNumber" :options="numbers" />
             <button class="btn btn-primary" v-on:click="play()">Play!</button>
-            <p>current operation: {{currentOperation}}</p>
-            <p>max number: {{maxNumber}}</p>
+
         </div>
     </div>
     <div v-if="screen==='play'">
@@ -47,21 +46,6 @@ import ClearButton from './ClearButton';
 import {checkAnswer,getRandNumbers,getCorrectAnswer} from '../helpers/gameplay';
 
 
-    /* if (displayAnswer === 'correct') {
-      
-      score = score + 1;
-      operands = getRandNumbers(
-      props.operation, 0,
-      props.maxNumber
-      );
-      correctAnswer = getCorrectAnswer(
-      props.operation,
-      newRandNums.num1,
-      newRandNums.num2
-      );
-
-      } */
-
 export default {
     name: 'Main',
     components: {
@@ -76,7 +60,7 @@ export default {
         score: 0,
         input: '',
         answer: '',
-        operands: {num1:4,num2:1},
+        operands: {num1:1,num2:1},
         correctAnswer: 2, 
         answered: true,
         timeLeft:10,
@@ -97,7 +81,7 @@ export default {
         },
         getOperands: function() {
             let randNums = getRandNumbers(
-                this.operation, 0,
+                this.currentOperation, 0,
                 this.maxNumber);
                 return randNums;
         },
@@ -114,26 +98,31 @@ export default {
             this.screen = "play";
         },
         clear() {
-            this.answer = '';
+            this.input = '';
         },
         setInput(prevValue,value){
             this.input = String(prevValue) + String(value);
             this.answer = checkAnswer(this.input,this.correctAnswer);
+            if (this.answer === 'correct'){
+                this.newQuestion();
+            }
         },
         newQuestion() {
-            this.setInput('');
+            this.input='';
+            this.answer='';
             this.answered = false;
             this.operands = getRandNumbers(
-                this.operation, 0, this.maxNumber
+                this.currentOperation, 0, this.maxNumber
             );
+            console.log("new operands: " + this.operands.num1 + ' ' + this.operands.num2);
             let newCorrectAnswer = getCorrectAnswer(
-                this.operation,
+                this.currentOperation,
                 this.operands.num1,
                 this.operands.num2
             );
             this.correctAnswer = newCorrectAnswer;
-        },
-        getCorrectAnswer
+            console.log("new correct answer: " + this.correctAnswer);
+        }
     }
     
 }
